@@ -32,6 +32,10 @@ The Omnichain Fungible Token (OFT) Standard is an ERC20 token that can be transf
 
 Some additional points for developers/builders to be aware of when deploying your LZ V2 OFT or working through troubleshooting:
 
+# Sending OFTs Cross Chain
+
+- run `npx hardhat lz:oft:send --contract-a <CONTRACT_A> --recipient-b <RECIPIENT_B> --network-a <NETWORK_A> --network-b <NETWORK_B> --amount <AMOUNT> --private-key <PRIVATE_KEY>` to use the Hardhat task from the index.ts file in the tasks directory - this ensures you are estimating the gas fees properly. This task is more efficient and reliable as it has added handling for gas price and nonce to avoid the "replacement transaction underpriced" error. It also includes private key as a parameter for the task to use the correct wallet for signing transactions.
+
 # In order: 
 
 - start with `npx create-lz-app-oapp@latest`
