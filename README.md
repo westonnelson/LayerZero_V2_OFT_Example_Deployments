@@ -30,9 +30,9 @@ The Omnichain Fungible Token (OFT) Standard is an ERC20 token that can be transf
 
 ---
 
-Some additional points for developers/builders be aware of when deploying your LZ V2 OFT or working through troubleshooting:
+Some additional points for developers/builders to be aware of when deploying your LZ V2 OFT or working through troubleshooting:
 
-In order: 
+# In order: 
 
 - start with `npx create-lz-app-oapp@latest`
 - use pnpm as your package manager
@@ -43,7 +43,7 @@ In order:
 - run `pnpm install --save-dev @nomicfoundation/hardhat-verify`
 - run `npx hardhat verify --network arbitrum` (+ your constructor arguments: which should be the 1. name 2. symbol 3. LZ endpoint 4. delegate address
 - (complete the above task for each chain you deploy your OFT to.)
-- run `npx hardhat lz:oapp:wire --oapp-config layerzero.cinfig.ts`
+- run `npx hardhat lz:oapp:wire --oapp-config layerzero.config.ts`
 - Make sure you have a Hardhat task created to send tokens cross-chain
 - run `npx hardhat lz:oft:send --contract-a <contract-a> --recipient-b <recipient-address-chain-b> --network-a <network> --network-b <network> --amount <amount>`
 
