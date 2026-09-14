@@ -1,0 +1,41 @@
+name: Refresh lockfiles
+
+on:
+  push:
+    branches:
+      - security/js-yaml-cve-2026-59869
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: security/js-yaml-cve-2026-59869
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Regenerate lockfiles for js-yaml 4.3.1
+        run: |
+          if [ -f package-lock.json ]; then npm install --package-lock-only; fi
+          if [ -f yarn.lock ]; then corepack enable && yarn install; fi
+          if [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --lockfile-only; fi
+
+      - name: Commit lockfile updates
+        run: |
+          if git diff --quiet; then
+            echo "Lockfiles already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix(security): refresh lockfiles for js-yaml 4.3.1 (CVE-2026-59869)"
+          git push
